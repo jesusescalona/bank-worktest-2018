@@ -5,6 +5,10 @@ package io.example.bank.BankFactoryImpl;
  * @version: 03/04/2018/A
  */
 
+import java.util.List;
+
+import io.example.bank.AccountNotFoundException;
+import io.example.bank.AccountService;
 import io.example.bank.Money;
 
 import javax.jws.WebMethod;
@@ -20,31 +24,27 @@ public class OperationService
 //	@Autowired
 //	IUsuarioManager usuarioManager;
 	
-//	public OperationService() {
-//    	super();
-//    }
-//	
+	public OperationService() {
+    	super();
+    }
 	//private static Logger log = Logger.getLogger(CreateAccountService.class);
 	/**
-	 * Este Servicio permite almacenar el historial de todas las cuentas y transacciones en base de datos para su
-	 * posterior recuperación o consulta.
-	 * siguiendo el principio de contabilidad de doble entrada.
+	 * Este metodo permite crear cuentas con balance inicial cero (0)
+	 * @throws Exception 
 	 */
-	@WebMethod(operationName = "CreateAccount")
-    //public String createAccount(@WebParam(name = "ref")  String ref, @WebParam(name = "amount")  Money amount) throws Exception
-    public String createAccount() throws Exception
-	{
-    	try
-    	{
-    		String listAccounts = "Prueba";
-    		return listAccounts;
-		}
-    	catch (Exception e)
-    	{
+    @SuppressWarnings("null")
+	@WebMethod(operationName = "createAccount")
+   	public void createAccount(@WebParam(name = "ref")  String ref,@WebParam(name = "amount")  Money amount) throws Exception  {
+   	try {
+   		//log.debug(" Iniciando el servicio de crear una cuenta");
+   		AccountService createAccounts = null;
+   		createAccounts.createAccount(ref, amount);
+   		//log.debug(" Finalizando el servicio de crear una cuenta");
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("No se pudo crear la cuenta");
 		}
-    }
+   }
 	
 	/**
 	 * Este Servicio permite mover dinero entre cuentas utilizando transacciones equilibradas de varios niveles 
